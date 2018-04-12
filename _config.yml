@@ -80,4 +80,4 @@ deploy:
   type: git
   repo: https://github.com/yjh4866/yjh4866.github.io.git
   branch: master
-  message: 脱离语言的博客网站
+  message: 博文改用日期时间作文件名
