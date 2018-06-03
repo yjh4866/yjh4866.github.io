@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>北京八年（1）——生活篇 · 脱离语言</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180311 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180311 media="(max-width: 980px)"/>
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >脱离语言之家</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">北京八年（1）——生活篇</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>脱离语言之家</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            北京八年（1）——生活篇
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/06/03</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要说跟北京的故事，那得从2007年说起。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2007年，也是五月份，研究生调剂到长春，去复试时路过北京。北京西站从南广场出来，公交车坐了两三个小时才到上地，然后转车去用友找同学。当时的用友园内还是荒芜的，去食堂吃饭路过一片水坑，那食堂好啊，还有水果吃。返回到上地改坐地铁到北京站，当时2号线和13号线还没接上，得到西直门出站转车，13号线3块，2号线2块。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2010年毕业，跟北京的故事才正式开始。原准备回太原的，面试公司需要Delphi，我还专门学了一下，写了一个小应用。无奈太原工资只有￥2000/月，还是看在我学历的份上，只好作罢。长春的行李提前托运到北京站，5月26号早上跟现在的媳妇到了北京，出站前买了两张电话卡，随身行李寄存在火车站，然后直奔龙泽（事先查明，做IT的都住龙泽）。2号线到西直门转车直接到了13号线站台，我不敢相信可以直接换乘，还专门问了其他人。到了龙泽找街上出租房子的贴条，打电话让我们坐XX路公交车到霍营乡水务局，然后在龙锦苑东一区住下，￥650/月，没有中介费，据中介说可以转租。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房子挺大，客厅隔出两间，还剩一个不小的一个客厅，合租了四户。合租的麻烦事自然少不了。比如主卧有空调，北屋就一个人还经常出差，电费按人头平摊，记得当时只电费，一个月得超过￥50。再比如卫生间热水器坏了，主卧说人家独立卫生间，跟人家没关系，可是热水器的出水口分明接进主卧了。修热水器的钱我先出了，平摊的时候北屋换人了，好吧，我多出一份……。押一付三，再提前一个月交房租，七月底该交下一次房租了，比规定日期晚交了几天（退房时候这个坑得填）。合租闹心，想换地方了，九月初在霍营地铁站门口的小区租的房子，￥1300/月，找朋友帮忙搬家，当天下午就住进去了（后来才知道，这间房子被俩业务员同时租出去了，晚一点的话就得另找房子了）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前的房子得退租或者转租。交过两次房租，加押金就是七个月房租，我只住了三个月多。承诺业务员小费让帮忙转租，半个月没成功，只好找中介公司退房。实际住的时间加上转租时间，刚好四个月，一年的租房合同违约扣一个月房租，中介应该退我俩月房租。网上查了不少资料显示，北京的租房中介大多都是黑中介，即使你住够一年没违约，押金也是不退的，鸡蛋里挑骨头也得找点毛病，实在没毛病了直接告诉你退不了，这是中介公司给业务员安排的任务。这家中介公司搬到双井了，财务只工作日上班，好吧，我请假去双井退钱，不退押金的话，俩月房租退一个月也行。结果啊结果，只退了五十。合同上写明晚交房租滞纳金一天一百，水费电费一共一百，除非你证明你的水费电费交到当天了（鬼能证明），扣除各项费用，最终可退￥50。我查过资料，了解行情，也查明这家中介公司老板是西三旗地头蛇，有心理准备，好吧，你退我￥50。可能出乎负责人意料，上来跟我说要不咱再算算，我让你倒贴。啊别算了别算了，我相信你实力，你退我￥50吧。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;霍营地铁站一住就是四年，最后押金也能退出来，这点比较省心。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;跟媳妇家同一个省，但坐车的话得两天，交通很不方便，于是决定考个驾照。2012年初，媳妇帮报了海淀驾校，选的富康周末班￥4800，爱利舍贵些，开皮卡有点夸张（没学多久皮卡淘汰，报皮卡的学员自动升为新车型，桑塔纳）。人太多，约车难，每天跟抢火车票似的，淘宝上提供帮人约车服务。我个做开发的怎么能被难住呢，写个外挂呀。抓包，模拟浏览器请求，省去了其他资源的下载，直接请求网络接口，肯定比浏览器约车快啊。后来学校服务器更新，早上七点才能开始约车，再后来还加了验证码，我还写了个验证码识别的功能。我约车没什么难度，还加了个多账号登录的功能，免费帮人约车（技术相关详情见事业篇）。我每次都约同一个老师，这个老师也找我帮她的学员约车（通过教练报名，价格一样，但教练帮约车相对容易些，因为不是所有的车都在公网），最后送我了一条蝴蝶泉，我也是第一次听说这烟，一条得二百多。拿到驾照后还帮这个教练约了几次，七月份服务器又升级，我就抓不到登录接口了，也顺便放弃了约车外挂。五月份拿到驾照，九月份租车把养的兔子送回了媳妇家。原打算十一回太原买车的，结果北京回太原的汽车票啊，买不到，大厅里满满的人，没车，看样子晚上也到不了太原。上不了北京牌，那能不能在北京买车呢？车型是提前查好的，奇瑞E5（我就看俩指标，车重和轮胎宽度），直奔最近的奇瑞4S店，买不到汽车票只好买辆车了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;毕业后户口一直在吉林省大学生就业指导中心，据说三年到期打回原籍。而且迟早要回太原的，太原买房子还限购，于是开始考虑把户口迁回太原。最终了解到，山西省人才可以接收户口，但要求档案必须跟户口在一起，即档案调到山西省人才，户口随档案走，回吉林省改派到太原就好了。最终，2013年9月将户口落到了杏花岭，太原集体户。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2013年十一，我们结婚了。十二月，我们领证了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;买房子的事必须提上日程了。都说太原跟榆次快要连起来了，迟早要合并的。打开地图，太原、榆次、高速，好，位置就选在小店高速出口附近。2014年五一前的周末，即四月二十六七号，我们回去看房子了，总价定在七八十万的样子，首付三成是二十四万，也许差不多。考虑到孩子户口，所以我的户口得在孩子出生前落居民户，有房本才能落户。期房不靠谱，资料显示有开发商拿了钱迟迟不建房，没房子就没有房本，二手房不考虑。看了一圈才知道，小平米得提前两年预定，恒大的早就卖完了，只剩二手房了。最终选定了坤泽十里城，回北京，五一再来买。五一放假在北京出发时房子还在，快到太原，房子卖出去了。好吧，你们快。重新看房子，最终选在了恒大南边的小区，现房，总价九十多万（总结经验，买房子这事，最终买的价往往比预期高）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房子买完了，接着是等网签合同，等放贷，等交房拿钥匙。十月底交了一堆钱，开发商交了房，结果物业不接收，因为开发商跟物业有矛盾。好吧，不接收就不接收，反正我们不着急住。十一月底，物业居然给我打电话让交物业费，不接收我怎么交物业费？最终物业查实，确有此事，让我们回去办手续。据说有业主跟物业闹矛盾，物业不给充水费不给充电费，就算我抗着拖着，过几年再弄这事，这些钱肯定也少不了，而且物业还未必接收，好吧，你是物业你厉害。于是，十二月初，我回去办理了一下物业手续。了解到有购房合同，集体户就能落成居民户，顺便也把我的户口搞定了。我终于拿到户口本了，孩子的户口肯定也没问题了，但媳妇户口不能随迁。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;霍营的房子有点小，而且从这年5月1号开始，外地车不让进六环了。考虑到诸多因素，八月中旬，我们搬到了顺义建新南区，六环外，一直住到现在，将近四年。这房东的前房客是外地人，脏乱，所以她不打算租给外地人，看房子时接触了一下，认可了我们，房东决定租给我们，只要我们租，她就不会再租给别人。第二年合同没到期，她家孩子结婚要卖房子，房东只考虑买了不住的买家，而且要求新房东继续租给我们。最终在2015年五月中旬，我们与新房东重新签了合同，一直住到现在。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2015年中媳妇怀孕，据说妇幼医院人太多，生的时候才能住院，生之前只能在楼道呆着，我们选在了顺义中医院。七月份了解到直系亲属户口可以随迁了，我就回太原迁媳妇户口。第一次手续不全，拿到了材料清单。第二次，签字的人前一天晚上值班，当天肯定来不了。第三次，要首付款收据原件复印件，这个，材料清单上没有要求呀。只好让媳妇把收据拍了照发过来，我去打印，就当复印件。原件怎么办，让媳妇发个视频看行不行。签字人挺为难，我顺口说了一句，上次来你刚好值班没办成，这又得回北京跑一趟，然后，然后，签字人心一软，他看了看视频上的首付款收据不像假的，就签字同意了。我跟媳妇终于在一个户口本上了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2016年初孩子出生，然后回去给孩子落户，我们一家三口就都在一个户口本上了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;买房子时售楼部说太原没有首付款发票，只有购房发票。房管局测过房屋面积才能有最终的购房发票，那个时候房本也该到了。因地界纠纷，我们小区基本上拿不到房本，也就是说基本上拿不到购房发票。2017年中，问开发商首付款发票的事时了解到，已经有购房发票了，只是这个发票不能领房本，但可以提公积金。用完还回去就好了，别丢了，独此一份，别无备份。啊哈，终于可以提公积金了，于是，七月初回去拿购房发票提公积金，我的公积金很顺利，但媳妇离职四年了，联系不到原公司，而且公积金钱不多，就放弃了。八月底提前还了一大部分房贷，然后决定，房租到期，离京回老家。<br>2018年5月15号房子到期，太原的房子得提前租好。五一假期跟媳妇去太原找房子，太原房租真心不便宜，物业费采暖费自己出。我们小区八十多平的，两千往上，没办法，只好找了附近的房子，装修我家房子也方便些，再搬家也方便。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;五一回到北京就开始收拾家，衣服被子之类的打包好，5月6号周日，准备铁路托运。地图上查到顺义的点，开车过去，这个点撤了。官网咨询到顺义的网点在飞机场附近，开车过去，这个点也撤了。官网给了个电话，了解到搬马坡了，而且周日不能出单，没办法，只好走邮局。皮箱不能寄，电器不能寄（有原包装也不行），电子设备不能寄，电池不能寄，液体肯定也不能寄了，最终上午寄了8个包裹，一共花了￥209.4。北京的所有行李邮寄回太原，预算一千的，没想到这么便宜，下午继续。下午三个包裹，￥123，其中一个超过20kg了，单价￥3/kg，不然更便宜。剩下的不能邮寄的行李随车带，比如锅碗，电器，澡盆之类。邮局的包裹还挺快，前8个8号到，后3个9号到。<br>5月12号下午五点左右，一家三口回到了太原。找物业开门，车上的东西放在楼下，然后把车开出小区，物业关门。找地方停车，看时间还早，开车去邮局取包裹。原本有棱有角的纸箱，变成了球状，我也终于明白电器类的为什么不能邮寄了。物业下班了，车进不了小区，于是把车停在附近停车场，包月三百。回到新家，媳妇已经把东西搬进了家，幸亏同学帮忙，不然不知道得搬到什么时候。晚上去附近超市买其他生活用品，周边设施倒是还行。13号接宽带，办手机卡，电信的。然后把邮局的包裹搬到新家，再买桌子椅子之类生活用品。13号晚上，我一个人返回了北京，继续上班。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;房子原本15号到期，公司也是15号才开工资，可是三月份的工资还没开呢。近半年公司变故比较大，决定等到月底。另外找房子，小区有人￥1300/月，我说只住二十天，对方说那也按一个月算，其他费用可以不出，对于我来说很划算了。我现在两室一厅每个月￥2400，房东说现在房租一个月得小四千了。但合租肯定不如现在的房子舒服，也不如现在的房子住着踏实。于是问房东我继续住到2号的话多少钱，房东让我自己看着给。我房租预算是￥1500，再多就不如找合租了，房东同意了，一切都比较顺利。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原本打算6月1号离职的，人力这天要请假陪她家孩子过儿童节，于是5月31是我在北京的最后一个工作日。6月1号收拾东西，发现行李依然很多，于是把衣服送到邮局邮寄，一个￥19，另一个￥13加￥6的邮局专用包裹袋。房东第一次去收房时我刚开始打扫卫生，第二次去刚打扫完，时间很匆忙。退了押金，我拎着大包小包离开了住了三年九个多月的房子。剩余的水电费煤气费我没要，房东肯定也没想到，大约一百五。地铁上忽然想起来冰箱忘记清理了，微信上给房东姐说了一声，她没理我。好吧，合同外的十七天￥1500的确不多，但老旧空调、热水器坏了一年多、我们自己花钱买卫生间水池子、主卧灯每次都得敲一下才能亮，我想她也不算吃亏太多吧。我相信以后她会意识到的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我心情很平淡，没有什么大的波澜，可能一切都在我的计划之中，心里期盼着新的生活，也可能在北京的最后一天太匆忙，行李太沉，使我忘记了忧伤。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6月1号晚上23点53分，火车离开北京站。6月2号早上7点41分，火车到了太原站。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;太原的新生活开始了。</p>
+<p><br><br>邮局包裹清单<br>   <img src="http://yangjh.wang/assets/PackageDetail.jpg" alt="MacDown Screenshot"></p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/06/03/hello-world/" title= Hello World >
+                    <div class="prevTitle">Hello World</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yjh4866@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/yjh4866" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/github_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+        <br>
+<a href="http://www.miitbeian.gov.cn">晋ICP备18006136号</a>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 17 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/20180603213819/" >北京八年（1）——生活篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2018/03/07/InstallCMSAndMoveWebSite/" >安装CMS及网站迁移</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/20180103180146/" >我的程序员之路（13）——2017年度总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2017/01/05/20170105203336/" >我的程序员之路（12）——2016年度总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2016/12/25/20161225221431/" >我的程序员之路（11）——离职3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2016/01/05/20160105213211/" >我的程序员之路（10）——北京第三家公司工作第三年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2015/01/05/20150105231653/" >我的程序员之路（9）——北京第三家公司工作第二年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2014/03/22/20140322220949/" >CocoaChina六年了，记我的这六年——六年汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/2014/01/15/20140115211852/" >我的程序员之路（8）——北京第三家公司工作第一年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2013 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/04</span><a class="archive-post-title" href= "/2013/01/04/20130104205122/" >我的程序员之路（7）——离职2</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2012 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2012/02/05/20120205231941/" >我的程序员之路（6）——离职</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2011 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2011/06/11/20110611114453/" >我的程序员之路（5）——工作一年</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2011/01/21/20110121083256/" >我的程序员之路（4）——工作半年</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2010 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/2010/10/10/20101010215420/" >我的程序员之路（3）——学生时代3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2010/10/08/20101008143443/" >我的程序员之路（2）——学生时代2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span><a class="archive-post-title" href= "/2010/10/07/20101007022051/" >我的程序员之路（1）——学生时代1</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="我的程序员之路"><span class="iconfont-archer">&#xe60a;</span>我的程序员之路</span>
+    
+        <span class="sidebar-category-name" data-categories="人生"><span class="iconfont-archer">&#xe60a;</span>人生</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: '杨建红'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

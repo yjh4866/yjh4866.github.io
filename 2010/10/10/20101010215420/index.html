@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>我的程序员之路（3）——学生时代3 · 脱离语言</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180311 as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" type="text/css" href= /css/mobile.css?v=20180311 media="(max-width: 980px)"/>
+    <link rel="icon" href= /assets/favicon.ico>
+    <script>
+  // load webfont-loader async, and add callback function
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  async("https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", asyncCb)
+</script>
+    <script>
+        (function (w) {
+            "use strict";
+            // rel=preload support test
+            if (!w.loadCSS) {
+                w.loadCSS = function () { };
+            }
+            // define on the loadCSS obj
+            var rp = loadCSS.relpreload = {};
+            // rel=preload feature support test
+            // runs once and returns a function for compat purposes
+            rp.support = (function () {
+                var ret;
+                try {
+                    ret = w.document.createElement("link").relList.supports("preload");
+                } catch (e) {
+                    ret = false;
+                }
+                return function () {
+                    return ret;
+                };
+            })();
+
+            // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+            // then change that media back to its intended value on load
+            rp.bindMediaToggle = function (link) {
+                // remember existing media attr for ultimate state, or default to 'all'
+                var finalMedia = link.media || "all";
+
+                function enableStylesheet() {
+                    link.media = finalMedia;
+                }
+
+                // bind load handlers to enable media
+                if (link.addEventListener) {
+                    link.addEventListener("load", enableStylesheet);
+                } else if (link.attachEvent) {
+                    link.attachEvent("onload", enableStylesheet);
+                }
+
+                // Set rel and non-applicable media type to start an async request
+                // note: timeout allows this to happen async to let rendering continue in IE
+                setTimeout(function () {
+                    link.rel = "stylesheet";
+                    link.media = "only x";
+                });
+                // also enable media after 3 seconds,
+                // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+                setTimeout(enableStylesheet, 3000);
+            };
+
+            // loop through link elements in DOM
+            rp.poly = function () {
+                // double check this to prevent external calls from running
+                if (rp.support()) {
+                    return;
+                }
+                var links = w.document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    // qualify links to those with rel=preload and as=style attrs
+                    if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+                        // prevent rerunning on link
+                        link.setAttribute("data-loadcss", true);
+                        // bind listeners to toggle media back
+                        rp.bindMediaToggle(link);
+                    }
+                }
+            };
+
+            // if unsupported, run the polyfill
+            if (!rp.support()) {
+                // run once at least
+                rp.poly();
+
+                // rerun poly on an interval until onload
+                var run = w.setInterval(rp.poly, 500);
+                if (w.addEventListener) {
+                    w.addEventListener("load", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                } else if (w.attachEvent) {
+                    w.attachEvent("onload", function () {
+                        rp.poly();
+                        w.clearInterval(run);
+                    });
+                }
+            }
+            // commonjs
+            if (typeof exports !== "undefined") {
+                exports.loadCSS = loadCSS;
+            }
+            else {
+                w.loadCSS = loadCSS;
+            }
+        }(typeof global !== "undefined" ? global : this));
+    </script>
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    <script src="/scripts/main.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >脱离语言之家</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">我的程序员之路（3）——学生时代3</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>脱离语言之家</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            我的程序员之路（3）——学生时代3
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2010/10/10</span>
+                
+                <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                    <span class="iconfont-archer">&#xe602;</span>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+                <span class="shareWrapper">
+                    <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                    <span class="shareText">Share</span>
+                    <ul class="shareList">
+                        <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                            <div class="share-qrcode"></div>
+                        </li>
+                        <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                        <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                        <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                        <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                    </ul>
+                </span>
+            </div>
+        
+    </div>
+</div>
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>我的大学——入行期(2)</p>
+<p>2009年6年，导师要我做一个照相的程序。借来了相机，佳能的，于是先从相机的API入手，研究程序对相机的操作，都是一些英文资料，还得备好驱动，很是麻烦。慢慢对相机操作熟悉了，再根据习惯对API进行相应的封装，这提高可不少。照相的程序做好了，新的要求就出来了，要求可以自动将相片处理成公安部确定的尺寸，358*441像素，头顶到相片顶端的距离14-21等等，好的是公司以前开发过这个功能，直接拿到动态库就可以使用。不过没那么容易，如果接口设计成传入原始相片返回标准照片就好了，可实际上不可能这么设计，传入照片数据及照片尺寸，返回剪切位置及剪切尺寸，然后要根据这些信息从原始照片上剪切出来并缩小到标准尺寸，剪切位置还不是起点坐标，总之很是麻烦，研究了很长时间，以至于刚开始我还以为这个动态库根本实现不了这个功能。期间研究CBitmap，位数、数据对齐等，提取位图数据修改再重设位图，研究.bmp数据格式，封装类用于读写.bmp图片文件，学到了不少东西。还有图像处理方面的理论与算法，比如图像几何变换、灰度变换、平滑处理、图像锐化、边缘提取等好多算法，jpg格式的算法（不过现在还不会做自己的格式转换，傅立叶变换什么的，都是这个时候学的），gif和png格式，所以压缩算法也接触了点。这段时间学的很我图像处理方面的知识，现在工作中都用上了，比如用GDI+处理的图像，发现速度太慢，应用受到影响，只能用GDI手动处理图像来提高速度，再不行就得代码操作图像数据，然后生成图像显示到窗口了，计算机图形学上那个直线生成算法什么的，就在这里用了。</p>
+<p>学图像处理理论，对毕业论文有很大帮助。我的毕业论文是《基于密度的聚类算法研究》，是将灰度阈值分割理论用在了聚类算法上，DBSCAN算法，只能处理密度相关较大的数据，而且聚类前要输入参数，先用阈值分割理论对数据的密度进行一下分类，再用DBSCAN算法聚类就提高了聚类效果，这个我也用代码实现了，而且效果与理论上的效果很接近，收获很多。</p>
+<p>可以从相机采集到照片了，也会图像处理了，下一步就是软件设计了。先是将两个功能设计在一块，同事说这样设计不合理，应该要按功能模块分开，所以又分成两个主程序，一是人像采集，一是人像处理，两个程序间可以切换。图像处理时的功能相对多些，所以要设计工具栏、浮动工具栏什么的，学会了不少东西。导师看到设计成这样，也说界面太难看，要加入美工。加美工得先总结对话框，对每个对话框设计窗体，所以另个组的项目经理帮忙总结，这样，又设计了一款多个对话框的系统。帮完这些也该过新年了，新年后继续设计。美工说这么设计不好，所以跟美工交流，美工想办法设计，又将多个功能做成选项卡形式的，界面的设计我听美工的。美工设计好整体外观图，我再把图片按各个元素剪下来以在软件中使用。既然有美工，就得考虑换皮肤的问题。网上查了些资料，皮肤包有现成的包。别人的东西总不如自己设计的方便，网上的皮肤包只能把所有对话框成一种样式，不能一个对话框一个样式，没法在自己的软件中使用。于是考虑皮肤的设计问题，而且最重要的是，接口要设计的很容易使用，最好一句调用包整个软件的皮肤都换掉。千辛万苦，终于设计出来了，现在是把所有皮肤元素都放在一个文件夹下，那如果用户不小心删掉了一个图片文件，这会影响到软件的，所以要把皮肤包打包，意味着要把一个文件夹下的所有文件夹及文件打包成一个文件，而且根据这个文件还能还原成文件夹及文件，实现这个功能学习又进步不少，现在的工作中也用到这些知识了。程序运行起来，根据皮肤包文件还原为文件夹形式的皮肤包，这有个问题，公司美工做的图片会泄露啊，要保护自己公司的劳动成果吧，所以要让程序在内存中解包。皮肤包完了还有语言包，当然皮肤包的问题解决了，语言包的问题也能解决，这个是一样的，只是要用语言包，就要为每一个显示文字的地方编号，切换语言时要根据编号显示相应的文本。美工的提议，窗口边缘最好做成半透明的，选项卡形式的子窗口半透明没问题，背景图片处理好就能实现，要显示在桌面上的半透明效果就麻烦了，要有相应的动态库支持，而且窗体半透明时窗体上的控件是显示不出来的。为了解决这个问题，查了不少资料，最后是做成了两层，半透明窗体是一个对话框，控件是另一个对话框，窗体移动时两个对话框要同时移动。皮肤包语言包也会受到影响，因为半透明的窗体只能根据图片生成，而窗体标题上的文本要可切换，窗体背景图片也可切换，所以软件的设计上又费了一番工夫。不管难度有多大，最后所以问题都解决了，做成了一个完整的奖品，完成作品时，就到毕业时候了。长春离家太远了，所以毕业后我来到了北京，来这里见见世面，因为找到一个像我一样热爱写程序的太少了。</p>
+<p>以上这些都是在公司实习时做的，由于我很爱好写代码，所以也有自己的爱好，这期间，也帮同学写过一些程序，比如2009年7月8月，帮同学做过个歌唱比赛的评分系统。这个要有客户端服务器，由于写过聊天软件，所以写起这个来也很顺手。但要解决的问题也很多，比如客户端网线掉了又连上怎么办，总不能让服务器重启吧，而且客户端网线掉了服务器要知道该客户端掉线了，毕竟评委都是电脑盲，他们可能压根不知道他已经掉线了。一个小组的评分完成要生成结果，结果是要生成图片的，这样就可以直接显示在大屏幕上了，不然就得现做Word表格了，再说时间也不允许啊，评分结果要很快显示在大屏幕上的；还有另一个要求，就是一个选手唱完歌，下一个选手上台前就要出结果，唉，幸亏是电脑计分，不然可做不到。</p>
+<p>想到什么程序，我也会去实现的，比如外挂，QQ俄罗斯方块、QQ连连看、QQ找茬、QQ扫地雷等小游戏的外挂。写的最好的就是QQ连连看外挂了，点一下按钮就会消一对，或者点一下按钮全消光光，C#写过，C++也写，用C#时只能模拟鼠标或键盘给窗体发送消息，但这样必须是游戏窗口有焦点；C++写就可以给窗体发送消息了，很方便，不过QQ俄罗斯的键盘消息不好使，研究了很长时间也不知道腾讯的火拼俄罗斯怎么处理的键盘消息。当然，写游戏外挂也不是一帆风顺，刚开始的外挂是获取屏幕颜色来处理的，后来会遍历窗口了就通过遍历窗口来找到游戏窗口，再获取游戏窗口上的相应区域的图片，根据图片上的颜色值处理数据计算需要什么样的操作，通过发送消息操作游戏。这些是很机械的外挂，像农场种地那种游戏的外挂，就不知道如何下手了；来到北京的确学会了不少东西，至少会应用程序与Web服务器的通信了，所以就可以写农场种菜游戏的外挂了，有WebQQ也可以做个可以与腾讯的QQ聊天的程序了，或者做个聊天机器人，不过这些都是毕业后学会的了。</p>
+<p>学生时代结束了，但我还要在程序员这条路上继续走下去。</p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2011/01/21/20110121083256/" title= 我的程序员之路（4）——工作半年 >
+                    <div class="nextTitle">我的程序员之路（4）——工作半年</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2010/10/08/20101008143443/" title= 我的程序员之路（2）——学生时代2 >
+                    <div class="prevTitle">我的程序员之路（2）——学生时代2</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yjh4866@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/yjh4866" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/github_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+        <br>
+<a href="http://www.miitbeian.gov.cn">晋ICP备18006136号</a>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+    
+</footer>
+
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 17 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/20180603213819/" >北京八年（1）——生活篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/03</span><a class="archive-post-title" href= "/2018/06/03/hello-world/" >Hello World</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2018/03/07/InstallCMSAndMoveWebSite/" >安装CMS及网站迁移</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/20180103180146/" >我的程序员之路（13）——2017年度总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2017/01/05/20170105203336/" >我的程序员之路（12）——2016年度总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2016/12/25/20161225221431/" >我的程序员之路（11）——离职3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2016/01/05/20160105213211/" >我的程序员之路（10）——北京第三家公司工作第三年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2015/01/05/20150105231653/" >我的程序员之路（9）——北京第三家公司工作第二年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href= "/2014/03/22/20140322220949/" >CocoaChina六年了，记我的这六年——六年汇总</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/2014/01/15/20140115211852/" >我的程序员之路（8）——北京第三家公司工作第一年总结</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2013 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/04</span><a class="archive-post-title" href= "/2013/01/04/20130104205122/" >我的程序员之路（7）——离职2</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2012 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/05</span><a class="archive-post-title" href= "/2012/02/05/20120205231941/" >我的程序员之路（6）——离职</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2011 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/11</span><a class="archive-post-title" href= "/2011/06/11/20110611114453/" >我的程序员之路（5）——工作一年</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2011/01/21/20110121083256/" >我的程序员之路（4）——工作半年</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2010 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/10</span><a class="archive-post-title" href= "/2010/10/10/20101010215420/" >我的程序员之路（3）——学生时代3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/08</span><a class="archive-post-title" href= "/2010/10/08/20101008143443/" >我的程序员之路（2）——学生时代2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/07</span><a class="archive-post-title" href= "/2010/10/07/20101007022051/" >我的程序员之路（1）——学生时代1</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="我的程序员之路"><span class="iconfont-archer">&#xe60a;</span>我的程序员之路</span>
+    
+        <span class="sidebar-category-name" data-categories="人生"><span class="iconfont-archer">&#xe60a;</span>人生</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: '杨建红'
+    }
+</script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
