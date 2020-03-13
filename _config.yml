@@ -80,4 +80,4 @@ deploy:
   type: git
   repo: https://github.com/yjh4866/yjh4866.github.io.git
   branch: master
-  message: 《发表《北京八年（2）——事业篇》
+  message: 修改备案号信息
